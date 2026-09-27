@@ -1747,52 +1747,49 @@ function finalizarPedido() {
 
 
 
-  google.script.run
+ fetch(
+  'https://script.google.com/macros/s/AKfycbz7KsyN58tk8C49d4KXdavBQxDqGndgxF4IkxnDDnictpPjzz05vg89wLgvmL5Jm5oHrw/exec',
+  {
+    method: 'POST',
+    body: JSON.stringify({
+      acao: 'salvarPedido',
+      pedido: pedido
+    })
+  }
+)
+.then(function(resposta) {
+  return resposta.json();
+})
+.then(function(dados) {
 
-    .withSuccessHandler(
-      function(numeroPedido) {
+  if (!dados.sucesso) {
+    throw new Error(
+      dados.erro || 'Não foi possível registrar o pedido.'
+    );
+  }
 
+  enviarWhatsApp(
+    pedido,
+    dados.numeroPedido
+  );
 
-        enviarWhatsApp(
-          pedido,
-          numeroPedido
-        );
+  botao.disabled = false;
 
+  botao.innerText =
+    'Finalizar pedido pelo WhatsApp';
+})
+.catch(function(erro) {
 
-        botao.disabled =
-          false;
+  botao.disabled = false;
 
+  botao.innerText =
+    'Finalizar pedido pelo WhatsApp';
 
-        botao.innerText =
-          'Finalizar pedido pelo WhatsApp';
-
-      }
-    )
-
-    .withFailureHandler(
-      function(erro) {
-
-
-        botao.disabled =
-          false;
-
-
-        botao.innerText =
-          'Finalizar pedido pelo WhatsApp';
-
-
-        mostrarErroFinal(
-          'Não foi possível registrar o pedido: ' +
-          erro.message
-        );
-
-      }
-    )
-
-    .salvarPedido(pedido);
-
-}
-
+  mostrarErroFinal(
+    'Não foi possível registrar o pedido: ' +
+    erro.message
+  );
+});
 
 
 /* ==========================
