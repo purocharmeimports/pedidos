@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f5f2;
+      margin: 0;
+      padding: 18px;
+      color: #292929;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 6px 25px rgba(0,0,0,.10);
+    }
+
+    .cabecalho {
+      text-align: center;
+      padding: 18px;
+      background: #f2e8e1;
+    }
+
+    .logoLoja {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 18px;
+
+    .marca {
+      font-family: Georgia, serif;
+      font-size: 32px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .imports {
+      font-size: 12px;
+      letter-spacing: 6px;
+      margin-top: 7px;
+    }
+
+    .slogan {
+      margin-top: 15px;
+      color: #6d625c;
+      font-size: 14px;
+    }
+
+    .conteudo {
+      padding: 25px;
+    }
+
+    .titulo {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    .subtitulo {
+      color: #777;
+      font-size: 14px;
+      margin-top: -8px;
+      margin-bottom: 20px;
+    }
+
+
+    /* ETAPAS */
+
+    .etapas {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      font-size: 13px;
+    }
+
+    .etapa {
+      padding: 8px 12px;
+      border-radius: 20px;
+      background: #eee;
+      color: #777;
+    }
+
+    .etapa.ativa {
+      background: #292929;
+      color: white;
+    }
+
+    .linhaEtapa {
+      width: 25px;
+      height: 1px;
+      background: #ccc;
+    }
+
+
+    /* CATEGORIAS */
+
+    .categorias {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 20px;
+      padding-bottom: 5px;
+    }
+
+    .categoriaBtn {
+      border: 1px solid #cbbcb2;
+      background: white;
+      padding: 9px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .categoriaBtn.ativa {
+      background: #292929;
+      color: white;
+      border-color: #292929;
+    }
+
+
+    /* CATÁLOGO */
+
+    .catalogo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      border: 1px solid #e7e2de;
+      border-radius: 15px;
+      padding: 12px;
+      background: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fotoBox {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 11px;
+      background: #fafafa;
+    }
+
+    .fotoProduto {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .semFoto {
+      font-size: 45px;
+    }
+
+    .nomeProduto {
+      font-weight: bold;
+      margin-top: 12px;
+      line-height: 1.3;
+    }
+
+    .categoriaProduto {
+      color: #888;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .precoProduto {
+      font-family: Georgia, serif;
+      font-weight: bold;
+      font-size: 19px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    .adicionarCarrinho {
+      margin-top: auto;
+      padding: 11px;
+      background: #292929;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+
+    /* CARRINHO */
+
+    .secaoCarrinho {
+      margin-top: 30px;
+    }
+
+    .carrinhoVazio {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+      border: 1px dashed #ccc;
+      border-radius: 10px;
+    }
+
+    .itemCarrinho {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+
+    .itemNome {
+      font-weight: bold;
+    }
+
+    .itemPreco {
+      color: #666;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .controleQuantidade {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .controleQuantidade button {
+      min-width: 35px;
+      height: 35px;
+      border: 1px solid #ccc;
+      background: white;
+      border-radius: 8px;
+      font-size: 19px;
+      cursor: pointer;
+    }
+
+    .quantidadeTexto {
+      min-width: 25px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .remover {
+      margin-left: auto;
+      color: #b71c1c;
+      border: none !important;
+      width: auto !important;
+      font-size: 13px !important;
+    }
+
+
+    /* TOTAL */
+
+    .totalBox {
+      background: #f2e8e1;
+      border-radius: 13px;
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    .totalLabel {
+      font-size: 13px;
+    }
+
+    .total {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 3px;
+    }
+
+
+    /* BOTÕES */
+
+    .botaoPrincipal {
+      width: 100%;
+      background: #292929;
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 11px;
+      font-size: 17px;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .botaoWhatsApp {
+      width: 100%;
+      background: #25D366;
+      color: white;
+      padding: 17px;
+      border: none;
+      border-radius: 11px;
+      font-size: 17px;
+      font-weight: bold;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    .botaoWhatsApp:disabled {
+      opacity: .6;
+    }
+
+    .botaoVoltar {
+      width: 100%;
+      background: white;
+      color: #292929;
+      padding: 13px;
+      border: 1px solid #292929;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-top: 18px;
+      cursor: pointer;
+    }
+
+    .botaoCancelar {
+      width: 100%;
+      background: transparent;
+      color: #b71c1c;
+      padding: 12px;
+      border: none;
+      font-size: 14px;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+
+
+    /* FORMULÁRIO */
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d6d6d6;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    #enderecoBox {
+      display: none;
+    }
+
+
+    /* RESUMO FINAL */
+
+    .resumoPedido {
+      background: #faf9f8;
+      border: 1px solid #e7e2de;
+      border-radius: 13px;
+      padding: 16px;
+      margin-bottom: 25px;
+    }
+
+    .resumoItem {
+      padding: 10px 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .resumoItem:last-child {
+      border-bottom: none;
+    }
+
+    .resumoNome {
+      font-weight: bold;
+    }
+
+    .resumoDetalhe {
+      color: #666;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+
+    /* ERRO */
+
+    .erro {
+      display: none;
+      background: #ffebee;
+      color: #b71c1c;
+      padding: 11px;
+      border-radius: 9px;
+      margin-top: 15px;
+    }
+
+
+    .rodape {
+      text-align: center;
+      padding: 0 20px 25px;
+      color: #888;
+      font-size: 12px;
+    }
+
+
+    /* SEGUNDA TELA COMEÇA ESCONDIDA */
+
+    #telaFinalizacao {
+      display: none;
+    }
+
+
+    @media(max-width: 420px) {
+
+      .catalogo {
+        gap: 10px;
+      }
+
+      .conteudo {
+        padding: 18px;
+      }
+
+      .card {
+        padding: 9px;
+      }
+
+      .nomeProduto {
+        font-size: 14px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+  <!-- CABEÇALHO -->
+
+ <div class="cabecalho">
+
+  <img
+    src="https://drive.google.com/thumbnail?id=13I9Kt766qnOg3yoqhJ5i7xWN-6NAqrl6&sz=w1000"
+    class="logoLoja"
+    alt="Puro Charme Imports">
+
+</div>
+
+
+
+  <!-- ====================== -->
+  <!-- TELA 1 - LOJA -->
+  <!-- ====================== -->
+
+  <div id="telaLoja"
+       class="conteudo">
+
+
+    <div class="etapas">
+
+      <div class="etapa ativa">
+        ① Produtos
+      </div>
+
+      <div class="linhaEtapa"></div>
+
+      <div class="etapa">
+        ② Finalização
+      </div>
+
+    </div>
+
+
+    <div class="titulo">
+      Nosso catálogo
+    </div>
+
+    <div class="subtitulo">
+      Escolha seus produtos e adicione ao carrinho.
+    </div>
+
+
+    <div
+      id="categorias"
+      class="categorias">
+    </div>
+
+
+    <div
+      id="catalogo"
+      class="catalogo">
+
+      Carregando produtos...
+
+    </div>
+
+
+
+    <div class="secaoCarrinho">
+
+      <div class="titulo">
+        🛒 Seu carrinho
+      </div>
+
+      <div id="carrinho"></div>
+
+
+      <div class="totalBox">
+
+        <div class="totalLabel">
+          Total do pedido
+        </div>
+
+        <div
+          id="total"
+          class="total">
+
+          R$ 0,00
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="erroLoja"
+        class="erro">
+      </div>
+
+
+      <button
+        class="botaoPrincipal"
+        onclick="irParaFinalizacao()">
+
+        Continuar pedido →
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ====================== -->
+  <!-- TELA 2 - FINALIZAÇÃO -->
+  <!-- ====================== -->
+
+  <div id="telaFinalizacao"
+       class="conteudo">
+
+
+    <div class="etapas">
+
+      <div class="etapa">
+        ✓ Produtos
+      </div>
+
+      <div class="linhaEtapa"></div>
+
+      <div class="etapa ativa">
+        ② Finalização
+      </div>
+
+    </div>
+
+
+    <div class="titulo">
+      Finalizar pedido
+    </div>
+
+    <div class="subtitulo">
+      Confira seu pedido e informe seus dados.
+    </div>
+
+
+
+    <div
+      id="resumoPedido"
+      class="resumoPedido">
+    </div>
+
+
+    <div class="totalBox">
+
+      <div class="totalLabel">
+        Total
+      </div>
+
+      <div
+        id="totalFinal"
+        class="total">
+
+        R$ 0,00
+
+      </div>
+
+    </div>
+
+
+
+    <div class="titulo"
+         style="margin-top:30px;">
+
+      Seus dados
+
+    </div>
+
+
+    <label>
+      Nome *
+    </label>
+
+    <input
+      id="nome"
+      type="text"
+      placeholder="Digite seu nome">
+
+
+    <label>
+      WhatsApp / Telefone *
+    </label>
+
+    <input
+      id="contato"
+      type="tel"
+      placeholder="Digite seu contato">
+
+
+
+    <div class="titulo"
+         style="margin-top:30px;">
+
+      Pagamento e recebimento
+
+    </div>
+
+
+    <label>
+      Forma de pagamento *
+    </label>
+
+    <select id="pagamento">
+
+      <option value="">
+        Selecione
+      </option>
+
+      <option value="Pix">
+        Pix
+      </option>
+
+      <option value="Dinheiro">
+        Dinheiro
+      </option>
+
+      <option value="Cartão de débito">
+        Cartão de débito
+      </option>
+
+      <option value="Cartão de crédito">
+        Cartão de crédito
+      </option>
+
+    </select>
+
+
+
+    <label>
+      Como deseja receber? *
+    </label>
+
+    <select
+      id="recebimento"
+      onchange="alterarRecebimento()">
+
+      <option value="">
+        Selecione
+      </option>
+
+      <option value="Entrega">
+        Entrega
+      </option>
+
+      <option value="Retirada">
+        Retirada
+      </option>
+
+    </select>
+
+
+
+    <div id="enderecoBox">
+
+      <label>
+        Endereço para entrega *
+      </label>
+
+      <textarea
+        id="endereco"
+        placeholder="Rua, número, bairro, cidade e ponto de referência"></textarea>
+
+    </div>
+
+
+
+    <label>
+      Observações
+    </label>
+
+    <textarea
+      id="observacoes"
+      placeholder="Alguma informação importante sobre seu pedido?"></textarea>
+
+
+
+    <div
+      id="erroFinal"
+      class="erro">
+    </div>
+
+
+
+    <button
+      id="finalizar"
+      class="botaoWhatsApp"
+      onclick="finalizarPedido()">
+
+      Finalizar pedido pelo WhatsApp
+
+    </button>
+
+
+    <button
+      class="botaoVoltar"
+      onclick="voltarParaLoja()">
+
+      ← Voltar às compras
+
+    </button>
+
+
+    <button
+      class="botaoCancelar"
+      onclick="cancelarCompra()">
+
+      Cancelar compra
+
+    </button>
+
+
+  </div>
+
+
+
+  <div class="rodape">
+    Puro Charme Imports • ♡ Obrigada pela preferência ♡
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+let produtos = [];
+
+let carrinho = [];
+
+let whatsapp = '';
+
+let categoriaAtual = 'Todos';
+
+
+
+/* ==========================
+   CARREGAR PRODUTOS
+========================== */
+
+/* ==========================
+   CARREGAR PRODUTOS E WHATSAPP
+   VIA API DO GOOGLE APPS SCRIPT
+========================== */
+
+function receberDadosLoja(dados) {
+
+  if (!dados || !dados.sucesso) {
+    mostrarErroLoja(
+      'Não foi possível carregar os produtos.'
+    );
+    return;
+  }
+
+  produtos = dados.produtos || [];
+  whatsapp = dados.whatsapp || '';
+
+  criarCategorias();
+  mostrarCatalogo();
+  atualizarCarrinho();
+}
+
+
+function carregarDadosLoja() {
+
+  const script = document.createElement('script');
+
+  script.src =
+    'https://script.google.com/macros/s/AKfycbz7KsyN58tk8C49d4KXdavBQxDqGndgxF4IkxnDDnictpPjzz05vg89wLgvmL5Jm5oHrw/exec' +
+    '?api=produtos&callback=receberDadosLoja';
+
+  script.onerror = function() {
+    mostrarErroLoja(
+      'Não foi possível conectar à loja. Atualize a página e tente novamente.'
+    );
+  };
+
+  document.body.appendChild(script);
+}
+
+
+carregarDadosLoja();
+
+
+/* ==========================
+   CATEGORIAS
+========================== */
+
+function criarCategorias() {
+
+  const categorias =
+    ['Todos'].concat(
+      [...new Set(
+        produtos.map(
+          produto => produto.categoria
+        )
+      )]
+    );
+
+
+  const area =
+    document.getElementById('categorias');
+
+
+  area.innerHTML = '';
+
+
+  categorias.forEach(function(categoria) {
+
+    const botao =
+      document.createElement('button');
+
+
+    botao.className =
+      'categoriaBtn' +
+      (
+        categoria === categoriaAtual
+          ? ' ativa'
+          : ''
+      );
+
+
+    botao.innerText =
+      categoria;
+
+
+    botao.onclick =
+      function() {
+
+        categoriaAtual =
+          categoria;
+
+        criarCategorias();
+
+        mostrarCatalogo();
+
+      };
+
+
+    area.appendChild(botao);
+
+  });
+
+}
+
+
+
+/* ==========================
+   MOSTRAR CATÁLOGO
+========================== */
+
+function mostrarCatalogo() {
+
+  const area =
+    document.getElementById('catalogo');
+
+
+  area.innerHTML = '';
+
+
+  const lista =
+    categoriaAtual === 'Todos'
+
+      ? produtos
+
+      : produtos.filter(
+          produto =>
+            produto.categoria ===
+            categoriaAtual
+        );
+
+
+  lista.forEach(function(produto) {
+
+    const indice =
+      produtos.indexOf(produto);
+
+
+    const card =
+      document.createElement('div');
+
+
+    card.className =
+      'card';
+
+
+    const foto =
+      produto.foto
+
+        ? `<img
+             src="${produto.foto}"
+             class="fotoProduto"
+             alt="${produto.produto}">`
+
+        : `<div class="semFoto">
+             🛍️
+           </div>`;
+
+
+    card.innerHTML = `
+
+      <div class="fotoBox">
+        ${foto}
+      </div>
+
+      <div class="nomeProduto">
+        ${produto.produto}
+      </div>
+
+      <div class="categoriaProduto">
+        ${produto.categoria}
+      </div>
+
+      <div class="precoProduto">
+        ${formatarDinheiro(produto.preco)}
+      </div>
+
+      <button
+        class="adicionarCarrinho"
+        onclick="adicionarCarrinho(${indice})">
+
+        Adicionar
+
+      </button>
+
+    `;
+
+
+    area.appendChild(card);
+
+  });
+
+}
+
+
+
+/* ==========================
+   ADICIONAR AO CARRINHO
+========================== */
+
+function adicionarCarrinho(indice) {
+
+  const existente =
+    carrinho.find(
+      item =>
+        item.indice === indice
+    );
+
+
+  if (existente) {
+
+    existente.quantidade++;
+
+  }
+
+  else {
+
+    carrinho.push({
+
+      indice: indice,
+
+      quantidade: 1
+
+    });
+
+  }
+
+
+  atualizarCarrinho();
+
+}
+
+
+
+/* ==========================
+   ATUALIZAR CARRINHO
+========================== */
+
+function atualizarCarrinho() {
+
+  const area =
+    document.getElementById('carrinho');
+
+
+  if (carrinho.length === 0) {
+
+    area.innerHTML = `
+
+      <div class="carrinhoVazio">
+
+        Seu carrinho está vazio.
+
+      </div>
+
+    `;
+
+
+    document
+      .getElementById('total')
+      .innerText =
+        formatarDinheiro(0);
+
+
+    return;
+
+  }
+
+
+  area.innerHTML = '';
+
+
+  let total = 0;
+
+
+  carrinho.forEach(
+    function(item, posicao) {
+
+
+      const produto =
+        produtos[item.indice];
+
+
+      const subtotal =
+        produto.preco *
+        item.quantidade;
+
+
+      total += subtotal;
+
+
+      const div =
+        document.createElement('div');
+
+
+      div.className =
+        'itemCarrinho';
+
+
+      div.innerHTML = `
+
+        <div class="itemNome">
+
+          ${produto.produto}
+
+        </div>
+
+
+        <div class="itemPreco">
+
+          ${formatarDinheiro(produto.preco)}
+          cada
+
+        </div>
+
+
+        <div class="controleQuantidade">
+
+
+          <button
+            onclick="diminuirQuantidade(${posicao})">
+
+            −
+
+          </button>
+
+
+          <div class="quantidadeTexto">
+
+            ${item.quantidade}
+
+          </div>
+
+
+          <button
+            onclick="aumentarQuantidade(${posicao})">
+
+            +
+
+          </button>
+
+
+          <button
+            class="remover"
+            onclick="removerCarrinho(${posicao})">
+
+            🗑 Remover
+
+          </button>
+
+
+        </div>
+
+      `;
+
+
+      area.appendChild(div);
+
+    });
+
+
+  document
+    .getElementById('total')
+    .innerText =
+      formatarDinheiro(total);
+
+}
+
+
+
+/* ==========================
+   QUANTIDADE
+========================== */
+
+function aumentarQuantidade(posicao) {
+
+  carrinho[posicao]
+    .quantidade++;
+
+
+  atualizarCarrinho();
+
+}
+
+
+function diminuirQuantidade(posicao) {
+
+  if (
+    carrinho[posicao]
+      .quantidade > 1
+  ) {
+
+    carrinho[posicao]
+      .quantidade--;
+
+  }
+
+  else {
+
+    carrinho.splice(
+      posicao,
+      1
+    );
+
+  }
+
+
+  atualizarCarrinho();
+
+}
+
+
+function removerCarrinho(posicao) {
+
+  carrinho.splice(
+    posicao,
+    1
+  );
+
+
+  atualizarCarrinho();
+
+}
+
+
+
+/* ==========================
+   IR PARA FINALIZAÇÃO
+========================== */
+
+function irParaFinalizacao() {
+
+  document
+    .getElementById('erroLoja')
+    .style.display =
+      'none';
+
+
+  if (carrinho.length === 0) {
+
+    mostrarErroLoja(
+      'Adicione pelo menos um produto ao carrinho.'
+    );
+
+    return;
+
+  }
+
+
+  montarResumo();
+
+
+  document
+    .getElementById('telaLoja')
+    .style.display =
+      'none';
+
+
+  document
+    .getElementById('telaFinalizacao')
+    .style.display =
+      'block';
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+}
+
+
+
+/* ==========================
+   RESUMO DO PEDIDO
+========================== */
+
+function montarResumo() {
+
+  const area =
+    document.getElementById(
+      'resumoPedido'
+    );
+
+
+  area.innerHTML = '';
+
+
+  let total = 0;
+
+
+  carrinho.forEach(function(item) {
+
+    const produto =
+      produtos[item.indice];
+
+
+    const subtotal =
+      produto.preco *
+      item.quantidade;
+
+
+    total += subtotal;
+
+
+    const div =
+      document.createElement('div');
+
+
+    div.className =
+      'resumoItem';
+
+
+    div.innerHTML = `
+
+      <div class="resumoNome">
+
+        ${produto.produto}
+
+      </div>
+
+      <div class="resumoDetalhe">
+
+        ${item.quantidade}
+        ×
+        ${formatarDinheiro(produto.preco)}
+        =
+        ${formatarDinheiro(subtotal)}
+
+      </div>
+
+    `;
+
+
+    area.appendChild(div);
+
+  });
+
+
+  document
+    .getElementById('totalFinal')
+    .innerText =
+      formatarDinheiro(total);
+
+}
+
+
+
+/* ==========================
+   VOLTAR ÀS COMPRAS
+========================== */
+
+function voltarParaLoja() {
+
+  document
+    .getElementById('telaFinalizacao')
+    .style.display =
+      'none';
+
+
+  document
+    .getElementById('telaLoja')
+    .style.display =
+      'block';
+
+
+  atualizarCarrinho();
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+}
+
+
+
+/* ==========================
+   CANCELAR COMPRA
+========================== */
+
+function cancelarCompra() {
+
+  const confirmar =
+    confirm(
+      'Deseja realmente cancelar sua compra? Os produtos selecionados serão removidos do carrinho.'
+    );
+
+
+  if (!confirmar) {
+    return;
+  }
+
+
+  carrinho = [];
+
+
+  document
+    .getElementById('nome')
+    .value = '';
+
+
+  document
+    .getElementById('contato')
+    .value = '';
+
+
+  document
+    .getElementById('pagamento')
+    .value = '';
+
+
+  document
+    .getElementById('recebimento')
+    .value = '';
+
+
+  document
+    .getElementById('endereco')
+    .value = '';
+
+
+  document
+    .getElementById('observacoes')
+    .value = '';
+
+
+  document
+    .getElementById('enderecoBox')
+    .style.display =
+      'none';
+
+
+  atualizarCarrinho();
+
+
+  document
+    .getElementById('telaFinalizacao')
+    .style.display =
+      'none';
+
+
+  document
+    .getElementById('telaLoja')
+    .style.display =
+      'block';
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+
+}
+
+
+
+/* ==========================
+   ENTREGA / RETIRADA
+========================== */
+
+function alterarRecebimento() {
+
+  const recebimento =
+    document
+      .getElementById('recebimento')
+      .value;
+
+
+  document
+    .getElementById('enderecoBox')
+    .style.display =
+
+      recebimento === 'Entrega'
+
+        ? 'block'
+
+        : 'none';
+
+}
+
+
+
+/* ==========================
+   DINHEIRO
+========================== */
+
+function formatarDinheiro(valor) {
+
+  return Number(valor)
+    .toLocaleString(
+      'pt-BR',
+      {
+        style: 'currency',
+        currency: 'BRL'
+      }
+    );
+
+}
+
+
+
+/* ==========================
+   ERROS
+========================== */
+
+function mostrarErroLoja(texto) {
+
+  const erro =
+    document
+      .getElementById('erroLoja');
+
+
+  erro.innerText =
+    texto;
+
+
+  erro.style.display =
+    'block';
+
+}
+
+
+function mostrarErroFinal(texto) {
+
+  const erro =
+    document
+      .getElementById('erroFinal');
+
+
+  erro.innerText =
+    texto;
+
+
+  erro.style.display =
+    'block';
+
+}
+
+
+
+/* ==========================
+   FINALIZAR PEDIDO
+========================== */
+
+function finalizarPedido() {
+
+  const nome =
+    document
+      .getElementById('nome')
+      .value.trim();
+
+
+  const contato =
+    document
+      .getElementById('contato')
+      .value.trim();
+
+
+  const pagamento =
+    document
+      .getElementById('pagamento')
+      .value;
+
+
+  const recebimento =
+    document
+      .getElementById('recebimento')
+      .value;
+
+
+  const endereco =
+    document
+      .getElementById('endereco')
+      .value.trim();
+
+
+  const observacoes =
+    document
+      .getElementById('observacoes')
+      .value.trim();
+
+
+  document
+    .getElementById('erroFinal')
+    .style.display =
+      'none';
+
+
+
+  if (carrinho.length === 0) {
+
+    mostrarErroFinal(
+      'Seu carrinho está vazio.'
+    );
+
+    return;
+
+  }
+
+
+  if (!nome) {
+
+    mostrarErroFinal(
+      'Informe seu nome.'
+    );
+
+    return;
+
+  }
+
+
+  if (!contato) {
+
+    mostrarErroFinal(
+      'Informe seu contato.'
+    );
+
+    return;
+
+  }
+
+
+  if (!pagamento) {
+
+    mostrarErroFinal(
+      'Selecione a forma de pagamento.'
+    );
+
+    return;
+
+  }
+
+
+  if (!recebimento) {
+
+    mostrarErroFinal(
+      'Selecione entrega ou retirada.'
+    );
+
+    return;
+
+  }
+
+
+  if (
+    recebimento === 'Entrega' &&
+    !endereco
+  ) {
+
+    mostrarErroFinal(
+      'Informe o endereço para entrega.'
+    );
+
+    return;
+
+  }
+
+
+
+  let itens = [];
+
+  let total = 0;
+
+
+  carrinho.forEach(function(item) {
+
+    const produto =
+      produtos[item.indice];
+
+
+    const subtotal =
+      produto.preco *
+      item.quantidade;
+
+
+    total += subtotal;
+
+
+    itens.push({
+
+      produto:
+        produto.produto,
+
+      quantidade:
+        item.quantidade,
+
+      preco:
+        produto.preco,
+
+      subtotal:
+        subtotal
+
+    });
+
+  });
+
+
+
+  const pedido = {
+
+    nome: nome,
+
+    contato: contato,
+
+    pagamento: pagamento,
+
+    recebimento: recebimento,
+
+    endereco:
+      recebimento === 'Entrega'
+        ? endereco
+        : '',
+
+    observacoes:
+      observacoes,
+
+    itens:
+      itens,
+
+    total:
+      total
+
+  };
+
+
+
+  const botao =
+    document
+      .getElementById('finalizar');
+
+
+  botao.disabled =
+    true;
+
+
+  botao.innerText =
+    'Registrando pedido...';
+
+
+
+  google.script.run
+
+    .withSuccessHandler(
+      function(numeroPedido) {
+
+
+        enviarWhatsApp(
+          pedido,
+          numeroPedido
+        );
+
+
+        botao.disabled =
+          false;
+
+
+        botao.innerText =
+          'Finalizar pedido pelo WhatsApp';
+
+      }
+    )
+
+    .withFailureHandler(
+      function(erro) {
+
+
+        botao.disabled =
+          false;
+
+
+        botao.innerText =
+          'Finalizar pedido pelo WhatsApp';
+
+
+        mostrarErroFinal(
+          'Não foi possível registrar o pedido: ' +
+          erro.message
+        );
+
+      }
+    )
+
+    .salvarPedido(pedido);
+
+}
+
+
+
+/* ==========================
+   WHATSAPP
+========================== */
+
+function enviarWhatsApp(
+  pedido,
+  numeroPedido
+) {
+
+  let listaProdutos =
+    '';
+
+
+  pedido.itens.forEach(
+    function(item) {
+
+
+      listaProdutos +=
+
+        `• *${item.produto}*\n` +
+
+        `  ${item.quantidade} x ${formatarDinheiro(item.preco)}\n` +
+
+        `  Subtotal: ${formatarDinheiro(item.subtotal)}\n\n`;
+
+    }
+  );
+
+
+
+  let recebimentoTexto =
+
+    `*Recebimento:* ${pedido.recebimento}`;
+
+
+
+  if (
+    pedido.recebimento ===
+    'Entrega'
+  ) {
+
+    recebimentoTexto +=
+
+      `\n*Endereço:* ${pedido.endereco}`;
+
+  }
+
+
+
+  const observacaoTexto =
+
+    pedido.observacoes
+
+      ? `\n\n*Observações:* ${pedido.observacoes}`
+
+      : '';
+
+
+
+  const mensagem =
+
+`*♡ PURO CHARME IMPORTS ♡*
+
+*NOVO PEDIDO*
+
+*Pedido:* ${numeroPedido}
+
+*Cliente:* ${pedido.nome}
+*Contato:* ${pedido.contato}
+
+*PRODUTOS*
+
+${listaProdutos} *TOTAL: ${formatarDinheiro(pedido.total)}*
+
+*Pagamento:* ${pedido.pagamento}
+${recebimentoTexto}${observacaoTexto}
+
+Obrigada pela preferência! ♡`;
+
+
+
+  const url =
+
+    'https://wa.me/' +
+
+    whatsapp +
+
+    '?text=' +
+
+    encodeURIComponent(
+      mensagem
+    );
+
+
+  window.open(
+    url,
+    '_blank'
+  );
+
+}
+
+</script>
+
+</body>
+
+</html>
