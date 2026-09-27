@@ -1529,197 +1529,123 @@ function finalizarPedido() {
     document
       .getElementById('nome')
       .value.trim();
-
-
   const contato =
     document
       .getElementById('contato')
       .value.trim();
-
-
   const pagamento =
     document
       .getElementById('pagamento')
       .value;
-
-
   const recebimento =
     document
       .getElementById('recebimento')
       .value;
-
-
   const endereco =
     document
       .getElementById('endereco')
       .value.trim();
-
-
   const observacoes =
     document
       .getElementById('observacoes')
       .value.trim();
-
-
   document
     .getElementById('erroFinal')
     .style.display =
       'none';
 
-
-
   if (carrinho.length === 0) {
-
     mostrarErroFinal(
       'Seu carrinho está vazio.'
     );
-
     return;
-
   }
 
-
   if (!nome) {
-
     mostrarErroFinal(
       'Informe seu nome.'
     );
-
     return;
-
   }
 
-
   if (!contato) {
-
     mostrarErroFinal(
       'Informe seu contato.'
     );
-
     return;
-
   }
 
-
   if (!pagamento) {
-
     mostrarErroFinal(
       'Selecione a forma de pagamento.'
     );
-
     return;
-
   }
 
-
   if (!recebimento) {
-
     mostrarErroFinal(
       'Selecione entrega ou retirada.'
     );
-
     return;
-
   }
-
 
   if (
     recebimento === 'Entrega' &&
     !endereco
   ) {
-
     mostrarErroFinal(
       'Informe o endereço para entrega.'
     );
-
     return;
-
   }
 
-
-
   let itens = [];
-
   let total = 0;
-
-
   carrinho.forEach(function(item) {
-
     const produto =
       produtos[item.indice];
-
-
     const subtotal =
       produto.preco *
       item.quantidade;
-
-
     total += subtotal;
-
-
     itens.push({
-
       produto:
         produto.produto,
-
       quantidade:
         item.quantidade,
-
       preco:
         produto.preco,
-
       subtotal:
         subtotal
-
     });
-
   });
 
-
-
   const pedido = {
-
     nome: nome,
-
     contato: contato,
-
     pagamento: pagamento,
-
     recebimento: recebimento,
-
     endereco:
       recebimento === 'Entrega'
         ? endereco
         : '',
-
     observacoes:
       observacoes,
-
     itens:
       itens,
-
     total:
       total
-
   };
-
-
 
   const botao =
     document
       .getElementById('finalizar');
-
-
   botao.disabled =
     true;
-
-
   botao.innerText =
     'Registrando pedido...';
 
-
-
- fetch(
+  fetch(
   'https://script.google.com/macros/s/AKfycbz7KsyN58tk8C49d4KXdavBQxDqGndgxF4IkxnDDnictpPjzz05vg89wLgvmL5Jm5oHrw/exec',
   {
     method: 'POST',
@@ -1733,30 +1659,23 @@ function finalizarPedido() {
   return resposta.json();
 })
 .then(function(dados) {
-
   if (!dados.sucesso) {
     throw new Error(
       dados.erro || 'Não foi possível registrar o pedido.'
     );
   }
-
   enviarWhatsApp(
     pedido,
     dados.numeroPedido
   );
-
   botao.disabled = false;
-
   botao.innerText =
     'Finalizar pedido pelo WhatsApp';
 })
 .catch(function(erro) {
-
   botao.disabled = false;
-
   botao.innerText =
     'Finalizar pedido pelo WhatsApp';
-
   mostrarErroFinal(
     'Não foi possível registrar o pedido: ' +
     erro.message
